@@ -7,7 +7,7 @@ from numap.core.usb_base import USBBaseActor
 
 
 class USBClass(USBBaseActor):
-    name = 'Class'
+    name = "Class"
 
     Unspecified = 0x00
     Audio = 0x01
@@ -18,24 +18,24 @@ class USBClass(USBBaseActor):
     Printer = 0x07
     MassStorage = 0x08
     Hub = 0x09
-    CDCData = 0x0a
-    SmartCard = 0x0b
-    ContentSecurity = 0x0d
-    Video = 0x0e
-    PHDC = 0x0f
+    CDCData = 0x0A
+    SmartCard = 0x0B
+    ContentSecurity = 0x0D
+    Video = 0x0E
+    PHDC = 0x0F
     AudioVideo = 0x10
     Billboard = 0x11
-    DiagnosticDevice = 0xdc
-    WirelessController = 0xe0
-    Miscellaneous = 0xed
-    ApplicationSpecific = 0xfe
-    VendorSpecific = 0xff
+    DiagnosticDevice = 0xDC
+    WirelessController = 0xE0
+    Miscellaneous = 0xED
+    ApplicationSpecific = 0xFE
+    VendorSpecific = 0xFF
 
     def __init__(self, app, phy):
-        '''
+        """
         :param app: nümap application
         :param phy: Physical connection
-        '''
+        """
         super(USBClass, self).__init__(app, phy)
         self.setup_request_handlers()
         self.device = None
@@ -44,9 +44,7 @@ class USBClass(USBBaseActor):
 
     def setup_request_handlers(self):
         self.setup_local_handlers()
-        self.request_handlers = {
-            x: self._global_handler for x in self.local_handlers
-        }
+        self.request_handlers = {x: self._global_handler for x in self.local_handlers}
 
     def setup_local_handlers(self):
         self.local_handlers = {}
@@ -56,7 +54,7 @@ class USBClass(USBBaseActor):
         response = handler(req)
         if response is not None:
             self.phy.send_on_endpoint(0, response)
-        self.usb_function_supported('class specific setup request received')
+        self.usb_function_supported("class specific setup request received")
 
     def default_handler(self, req):
         self._global_handler(req)
